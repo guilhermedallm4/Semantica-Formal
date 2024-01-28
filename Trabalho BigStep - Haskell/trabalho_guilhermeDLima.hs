@@ -180,3 +180,22 @@ fatorial = (Seq (Atrib (Var "y") (Num 1))
                        (Seq (Atrib (Var "y") (Mult (Var "y") (Var "x")))
                             (Atrib (Var "x") (Sub (Var "x") (Num 1))))
                             ((Igual (Var "x") (Num 1)))))
+
+--exSigma 
+programaExemplo :: B
+programaExemplo = (Igual (Var "x") (Num 5))
+
+
+--bbigStep (programaExemplo, exSigma)
+
+-- exSigma2
+programaExemplo2 :: C
+programaExemplo2 = (Seq 
+                    (CondAtrib (Igual (Var "x") (Num 1)) -- X == 1
+                      (Var "z")
+                      (Soma (Num 10) (Num 5))
+                      (Mult (Num 5) (Num 2)))
+                    (Atrib (Var "y") (Num 5))
+                    )
+
+--  cbigStep (programaExemplo2, exSigma2)
