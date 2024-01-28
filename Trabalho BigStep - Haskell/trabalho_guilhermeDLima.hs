@@ -135,7 +135,7 @@ cbigStep (DAtrrib (Var x) (Var y) e1 e2, s) = let (Skip, s1) = cbigStep (Atrib (
 -------------------------------------
 
 exSigma2 :: Memoria
-exSigma2 = [("x",5), ("y",0), ("z",0)]
+exSigma2 = [("x",3), ("y",0), ("z",0)]
 
 
 ---
@@ -163,9 +163,12 @@ progExp1 = Soma (Num 3) (Soma (Var "x") (Var "y"))
 teste1 :: B
 teste1 = (Leq (Soma (Num 3) (Num 3))  (Mult (Num 2) (Num 3)))
 
+--  bbigStep (teste1, exSigma)  
+
 teste2 :: B
 teste2 = (Leq (Soma (Var "x") (Num 4))  (Mult (Num 2) (Num 3)))
 
+--  bbigStep (teste1, exSigma)  
 
 ---
 -- Exemplos de Programas Imperativos:
@@ -174,12 +177,16 @@ testec1 :: C
 testec1 = (Seq (Seq (Atrib (Var "z") (Var "x")) (Atrib (Var "x") (Var "y"))) 
                (Atrib (Var "y") (Var "z")))
 
+--cbigStep (testec1, exSigma2) 
+
 fatorial :: C
 fatorial = (Seq (Atrib (Var "y") (Num 1))
                 (RepeatUntil 
                        (Seq (Atrib (Var "y") (Mult (Var "y") (Var "x")))
                             (Atrib (Var "x") (Sub (Var "x") (Num 1))))
                             ((Igual (Var "x") (Num 1)))))
+
+--cbigStep (fatorial, exSigma2)
 
 --exSigma 
 programaExemplo :: B
