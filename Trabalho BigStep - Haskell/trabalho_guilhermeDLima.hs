@@ -168,7 +168,7 @@ teste1 = (Leq (Soma (Num 3) (Num 3))  (Mult (Num 2) (Num 3)))
 teste2 :: B
 teste2 = (Leq (Soma (Var "x") (Num 4))  (Mult (Num 2) (Num 3)))
 
---  bbigStep (teste1, exSigma)  
+--  bbigStep (teste2, exSigma)  
 
 ---
 -- Exemplos de Programas Imperativos:
