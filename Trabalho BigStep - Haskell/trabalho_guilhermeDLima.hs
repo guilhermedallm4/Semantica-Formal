@@ -206,3 +206,15 @@ programaExemplo2 = (Seq
                     )
 
 --  cbigStep (programaExemplo2, exSigma2)
+
+-- exSigma2
+programaExemplo3 :: C
+programaExemplo3 = (Seq 
+                    (CondAtrib (Igual (Var "x") (Num 1)) -- X == 1
+                      (Var "z")
+                      (Soma (Num 10) (Num 5))
+                      (Mult (Num 5) (Num 2)))
+                    (Swap (Var "z") (Var "x")))
+
+
+--  cbigStep (programaExemplo3, exSigma2)   
