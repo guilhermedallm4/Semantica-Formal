@@ -67,3 +67,22 @@ ghci .\trabalho_guilhermeDLima.hs
 
 cbigStep (programaExemplo3, exSigma2)
 ```
+
+### Programa Exemplo 4
+```
+programaExemplo4 :: C
+programaExemplo4 = (RepeatUntil 
+                      (Seq 
+                        (Atrib (Var "y") (Soma (Var "y") (Num 1))) 
+                        (Atrib (Var "x") (Sub (Var "x") (Num 1)))) 
+                      (Igual (Var "x") (Num 0)))
+
+
+--  cbigStep (programaExemplo4, exSigma2) 
+```
+### Comando para executar Programa Exemplo 4
+```
+ghci .\trabalho_guilhermeDLima.hs
+
+cbigStep (programaExemplo4, exSigma2)
+```
