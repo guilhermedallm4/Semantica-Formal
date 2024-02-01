@@ -218,3 +218,13 @@ programaExemplo3 = (Seq
 
 
 --  cbigStep (programaExemplo3, exSigma2)   
+
+programaExemplo4 :: C
+programaExemplo4 = (RepeatUntil 
+                      (Seq 
+                        (Atrib (Var "y") (Soma (Var "y") (Num 1))) 
+                        (Atrib (Var "x") (Sub (Var "x") (Num 1)))) 
+                      (Igual (Var "x") (Num 0)))
+
+
+--  cbigStep (programaExemplo4, exSigma2) 
