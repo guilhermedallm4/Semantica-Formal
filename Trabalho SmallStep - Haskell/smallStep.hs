@@ -231,14 +231,29 @@ teste1 :: B
 teste1 = (Leq (Soma (Num 3) (Num 3))  (Mult (Num 2) (Num 3)))
 
 
+-- Exemplos de Programas Imperativos:
+
+teste1 :: B
+teste1 = (Leq (Soma (Num 3) (Num 3))  (Mult (Num 2) (Num 3)))
+
+--interpretadorB (teste1, exSigma2)
+
 ---
 -- Exemplos de Programas Imperativos:
+
+--exSigma 
+programaExemplo :: B
+programaExemplo = (Igual (Var "x") (Num 4))
+
+--interpretadorB (programaExemplo, exSigma2)
+
 
 testec1 :: C
 testec1 = (Seq (Seq (Atrib (Var "z") (Var "x")) (Atrib (Var "x") (Var "y"))) 
                (Atrib (Var "y") (Var "z")))
 
---cbigStep (testec1, exSigma2) 
+--interpretadorC (testec1, exSigma2)
+
 
 fatorial :: C
 fatorial = (Seq (Atrib (Var "y") (Num 1))
@@ -247,14 +262,7 @@ fatorial = (Seq (Atrib (Var "y") (Num 1))
                             (Atrib (Var "x") (Sub (Var "x") (Num 1))))
                             ((Igual (Var "x") (Num 1)))))
 
---cbigStep (fatorial, exSigma2)
-
---exSigma 
-programaExemplo :: B
-programaExemplo = (Igual (Var "x") (Num 5))
-
-
---bbigStep (programaExemplo, exSigma)
+--interpretadorC (fatorial, exSigma)
 
 -- exSigma2
 programaExemplo2 :: C
@@ -266,6 +274,8 @@ programaExemplo2 = (Seq
                     (Atrib (Var "y") (Num 5))
                     )
 
+--interpretadorC (programaExemplo2, exSigma2)
+
 -- exSigma2
 programaExemplo3 :: C
 programaExemplo3 = (DAtrrib 
@@ -274,8 +284,12 @@ programaExemplo3 = (DAtrrib
                     (Soma (Num 10) (Num 10))
                     (Soma (Num 20) (Num 20)))
 
+--interpretadorC (programaExemplo3, exSigma2)
+
 -- exSigma2
-programSwap :: C
-programSwap = (Swap 
+programaSwap :: C
+programaSwap = (Swap 
                 (Var "x")
                 (Var "y"))
+
+--interpretadorC (programaSwap, exSigma2)
