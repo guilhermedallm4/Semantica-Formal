@@ -230,12 +230,6 @@ progExp1 = Soma (Num 3) (Soma (Var "x") (Var "y"))
 teste1 :: B
 teste1 = (Leq (Soma (Num 3) (Num 3))  (Mult (Num 2) (Num 3)))
 
-
--- Exemplos de Programas Imperativos:
-
-teste1 :: B
-teste1 = (Leq (Soma (Num 3) (Num 3))  (Mult (Num 2) (Num 3)))
-
 --interpretadorB (teste1, exSigma2)
 
 ---
