@@ -137,12 +137,9 @@ smallStepC (DoWhile c b, s) = (Seq c (If b (DoWhile c b) Skip), s)
 smallStepC (RepeatUntil c b, s) = (Seq c (If b Skip (RepeatUntil c b)), s)  -- RepeatUntil C B  -- Repete C até que B seja verdadeiro
 smallStepC (CondAtrib b (Var x) e1 e2, s) = (If b (Atrib (Var x) e1) (Atrib (Var x) e2), s) -- CondAtrib B V E E  --- Atribuição condicional, recebe uma expressão booleana, uma variável e duas expressões aritméticas: B |- x := E1,E2, Se B é verdade então x := E1 senâo x:= E2
 
--- Swap E E --- recebe duas variáveis e troca o conteúdo delas
-smallStepC (Swap (Var x) (Var y), s) = 
+smallStepC (Swap (Var x) (Var y), s) = (DAtrrib (Var x) (Var y) (Var y) (Var x), s) -- Swap E E --- recebe duas variáveis e troca o conteúdo delas
 
-let (Skip, sl) = (Skip, mudaVar s y ((Var x, s))) in (Skip, mudaVar sl x ((Var y, s)))
-
-smallStepC (DAtrrib (Var x) (Var y) (Num n1) (Num n2), s) = let (Skip, sl) = (Atrib (Var x) (Num n1), s) in (Atrib (Var y) (Num n2), sl)
+smallStepC (DAtrrib (Var x) (Var y) (Num n1) (Num n2), s) = (Seq (Atrib (Var x) (Num n1)) (Atrib (Var y) (Num n2)), s)
 smallStepC (DAtrrib (Var x) (Var y) (Num n1) e2, s) = let (el, sl) = smallStepE(e2, s) in (DAtrrib (Var x) (Var y) (Num n1) el, sl)
 smallStepC (DAtrrib (Var x) (Var y) e1 e2, s) = let(el, sl) = smallStepE(e1, s) in (DAtrrib (Var x) (Var y) el e2, sl) 
 
@@ -195,7 +192,7 @@ interpretadorC (c,s) = if (isFinalC c) then (c,s) else interpretadorC (smallStep
 -------------------------------------
 
 exSigma2 :: Memoria
-exSigma2 = [("x",3), ("y",0), ("z",0)]
+exSigma2 = [("x",3), ("y",10), ("z",0)]
 
 
 ---
@@ -228,17 +225,11 @@ progExp1 = Soma (Num 3) (Soma (Var "x") (Var "y"))
 
 
 ---
---- Exemplos de expressões booleanas:
-
+-- Exemplos de Programas Imperativos:
 
 teste1 :: B
 teste1 = (Leq (Soma (Num 3) (Num 3))  (Mult (Num 2) (Num 3)))
 
-teste2 :: B
-teste2 = (Leq (Soma (Var "x") (Num 3))  (Mult (Num 2) (Num 3)))
-
-teste3 :: B 
-teste3 = (Igual (Soma (Var "x") (Var "x")) (Mult (Num 3) (Num 2)))
 
 ---
 -- Exemplos de Programas Imperativos:
@@ -247,8 +238,44 @@ testec1 :: C
 testec1 = (Seq (Seq (Atrib (Var "z") (Var "x")) (Atrib (Var "x") (Var "y"))) 
                (Atrib (Var "y") (Var "z")))
 
+--cbigStep (testec1, exSigma2) 
+
 fatorial :: C
 fatorial = (Seq (Atrib (Var "y") (Num 1))
-                (While (Not (Igual (Var "x") (Num 1)))
+                (RepeatUntil 
                        (Seq (Atrib (Var "y") (Mult (Var "y") (Var "x")))
-                            (Atrib (Var "x") (Sub (Var "x") (Num 1))))))
+                            (Atrib (Var "x") (Sub (Var "x") (Num 1))))
+                            ((Igual (Var "x") (Num 1)))))
+
+--cbigStep (fatorial, exSigma2)
+
+--exSigma 
+programaExemplo :: B
+programaExemplo = (Igual (Var "x") (Num 5))
+
+
+--bbigStep (programaExemplo, exSigma)
+
+-- exSigma2
+programaExemplo2 :: C
+programaExemplo2 = (Seq 
+                    (CondAtrib (Igual (Var "x") (Num 1)) -- X == 1
+                      (Var "z")
+                      (Soma (Num 10) (Num 5))
+                      (Mult (Num 5) (Num 2)))
+                    (Atrib (Var "y") (Num 5))
+                    )
+
+-- exSigma2
+programaExemplo3 :: C
+programaExemplo3 = (DAtrrib 
+                    (Var "x") 
+                    (Var "y") 
+                    (Soma (Num 10) (Num 10))
+                    (Soma (Num 20) (Num 20)))
+
+-- exSigma2
+programSwap :: C
+programSwap = (Swap 
+                (Var "x")
+                (Var "y"))
