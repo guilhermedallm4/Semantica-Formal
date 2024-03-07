@@ -142,7 +142,7 @@ smallStepC (Swap (Var x) (Var y), s) = (DAtrrib (Var x) (Var y) (Var y) (Var x),
 smallStepC (DAtrrib (Var x) (Var y) (Num n1) (Num n2), s) = (Seq (Atrib (Var x) (Num n1)) (Atrib (Var y) (Num n2)), s)
 smallStepC (DAtrrib (Var x) (Var y) (Num n1) e2, s) = let (el, sl) = smallStepE(e2, s) in (DAtrrib (Var x) (Var y) (Num n1) el, sl)
 smallStepC (DAtrrib (Var x) (Var y) e1 e2, s) = let(el, sl) = smallStepE(e1, s) in (DAtrrib (Var x) (Var y) el e2, sl) 
-
+smallStepC (Loop e c, s) = (If (Igual (Num 0) e) (Skip) (Seq c (Loop (Sub e (Num 1)) c)), s)
 ----------------------
 --  INTERPRETADORES
 ----------------------
@@ -298,3 +298,11 @@ programaSwap = (Swap
                 (Var "y"))
 
 --interpretadorC (programaSwap, exSigma2)
+
+programaExemploAula :: C
+programaExemploAula = (Loop (Num 10) 
+                        (Atrib (Var "x") 
+                            (Soma (Var "x") (Num 1))
+                        ) 
+                )
+-- interpretadorC (programaExemploAula, exSigma2)
