@@ -27,6 +27,7 @@ data C = While B C
     | CondAtrib B E E E  --- Atribuição condicional, recebe uma expressão booleana, uma variável e duas expressões aritméticas: B |- x := E1,E2, Se B é verdade então x := E1 senâo x:= E2
     | Swap E E --- recebe duas variáveis e troca o conteúdo delas
     | DAtrrib E E E E -- dupla atribuição
+    | Loop E C
    deriving(Eq,Show)   
 
 -----------------------------------------------------
